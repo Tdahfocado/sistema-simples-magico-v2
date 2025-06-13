@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simples e Mágico - Sistema de Decisões</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Biblioteca para OCR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/2.1.5/tesseract.min.js"></script>
+    <!-- Biblioteca para manipulação de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-watermark">
+                <img src="imgs/logo_tjce.png" alt="TJCE" onerror="this.style.display='none'">
+                <img src="imgs/ods_16.png" alt="ODS 16" onerror="this.style.display='none'">
+                <img src="imgs/linguagem_simples.png" alt="Linguagem Simples" onerror="this.style.display='none'">
+                <img src="imgs/acessibilidade_universal.png" alt="Acessibilidade" onerror="this.style.display='none'">
+            </div>
+            
+            <h1>
+                <span class="magic-icon">✨</span>
+                Simples e Mágico
+                <span class="magic-icon">✨</span>
+            </h1>
+            <p>Sistema Inteligente de Decisões em Linguagem Simples</p>
+            <p style="font-size: 0.9em; opacity: 0.8;">Juizado Especial da Comarca de Tauá - CE</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="gerador">🎯 Gerador</button>
+            <button class="nav-tab" data-tab="upload">📁 Upload IA</button>
+            <button class="nav-tab" data-tab="gravador">🎙️ Gravador</button>
+            <button class="nav-tab" data-tab="biblioteca">📚 Biblioteca</button>
+            <button class="nav-tab" data-tab="estatisticas">📊 Stats</button>
+        </div>
+        
+        <!-- TAB: GERADOR -->
+        <div id="gerador" class="tab-content active">
+            <div class="main-content">
+                <div class="form-section">
+                    <h2 style="margin-bottom: 25px; color: #2c3e50;">🎯 Gerador Mágico</h2>
+                    
+                    <div class="success-message" id="successMessage"></div>
+                    <div class="error-message" id="errorMessage"></div>
+                    
+                    <form id="decisionForm">
+                        <!-- Dados Básicos -->
+                        <div class="form-group">
+                            <label for="numeroProcesso">📋 Número do Processo <span class="required">*</span></label>
+                            <input type="text" id="numeroProcesso" placeholder="Ex: 0000123-45.2024.8.06.0133" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="autor">👤 Autor <span class="required">*</span></label>
+                                <input type="text" id="autor" placeholder="Nome do autor" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reu">👤 Réu <span class="required">*</span></label>
+                                <input type="text" id="reu" placeholder="Nome do réu" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Links QR Code -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="linkConsulta">🔍 Link Consulta Processual</label>
+                                <input type="url" id="linkConsulta" placeholder="https://esaj.tjce.jus.br/...">
+                                <div class="help-text">Link para consulta do processo</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="linkAudio">🎧 Link do Áudio</label>
+                                <input type="url" id="linkAudio" placeholder="https://drive.google.com/...">
+                                <div class="help-text">Link do áudio explicativo</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Seção dos ODS -->
+                        <div class="ods-section">
+                            <h4 style="color: #155724; display: flex; align-items: center; gap: 10px;">
+                                🌍 Objetivos de Desenvolvimento Sustentável
+                            </h4>
+                            
+                            <div class="ods-obrigatorios">
+                                <h5 style="color: #1565c0; margin-bottom: 10px;">📌 Sempre Incluídos</h5>
+                                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                                    <div class="ods-item obrigatorio">
+                                        <img src="imgs/ods_16.png" alt="ODS 16" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMTk3NmQyIi8+Cjx0ZXh0IHg9IjMwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjE2PC90ZXh0Pgo8L3N2Zz4K'">
+                                        <label>ODS 16<br>Paz/Justiça</label>
+                                    </div>
+                                    <div class="ods-item obrigatorio">
+                                        <img src="imgs/linguagem_simples.png" alt="Linguagem Simples" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMjhhNzQ1Ii8+Cjx0ZXh0IHg9IjMwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxTPC90ZXh0Pgo8L3N2Zz4K'">
+                                        <label>Linguagem<br>Simples</label>
+                                    </div>
+                                    <div class="ods-item obrigatorio">
+                                        <img src="imgs/logo_tjce.png" alt="TJCE" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjZGMzNTQ1Ii8+Cjx0ZXh0IHg9IjMwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlRKPC90ZXh0Pgo8L3N2Zz4K'">
+                                        <label>TJCE</label>
+                                    </div>
+                                    <div class="ods-item obrigatorio">
+                                        <img src="imgs/acessibilidade_universal.png" alt="Acessibilidade" onerror="this.textContent='♿'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.style.fontSize='30px'; this.style.backgroundColor='#17a2b8'; this.style.color='white'; this.style.width='55px'; this.style.height='55px'; this.style.borderRadius='8px';">
+                                        <label>Acessibilidade<br>Universal</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 style="color: #155724; margin-bottom: 10px;">✅ ODS Relacionados:</h5>
+                            <div class="ods-grid" id="odsGrid"></div>
+                            
+                            <div class="help-text">
+                                💡 Clique nos ODS relacionados ao processo
+                            </div>
+                        </div>
+                        
+                        <!-- Campos Principais -->
+                        <div class="form-group">
+                            <label for="pedido">❓ O que foi pedido <span class="required">*</span></label>
+                            <textarea id="pedido" rows="3" placeholder="Explique de forma simples..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="decisao">⚖️ Como decidiu <span class="required">*</span></label>
+                            <textarea id="decisao" rows="3" placeholder="A decisão de forma simples..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="motivo">🤔 Por que decidiu <span class="required">*</span></label>
+                            <textarea id="motivo" rows="2" placeholder="O motivo da decisão..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resultado">📋 Resultado <span class="required">*</span></label>
+                            <textarea id="resultado" rows="3" placeholder="O que acontece agora..." required></textarea>
+                        </div>
+                        
+                        <!-- Botões -->
+                        <button type="button" class="btn btn-success" id="btnGerarDecisao">
+                            ✨ Gerar Decisão Mágica
+                        </button>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <button type="button" class="btn" id="btnBaixarPDF">📄 PDF</button>
+                            <button type="button" class="btn" id="btnBaixarHTML">💾 HTML</button>
+                        </div>
+                        
+                        <div style="margin-top: 15px; padding: 10px; background: #e8f4f8; border-radius: 8px; font-size: 12px;">
+                            <strong>⌨️ Atalhos:</strong> Ctrl+S (Salvar), Ctrl+P (PDF), Ctrl+G (Gerar)
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="preview-section">
+                    <h3 style="margin-bottom: 20px; color: #2c3e50;">👁️ Pré-visualização</h3>
+                    
+                    <div id="previewDecisao" class="decisao-gerada">
+                        <div style="text-align: center; padding: 50px; color: #666;">
+                            <h3>✨ Aguardando a Mágica</h3>
+                            <p>Preencha os campos para ver sua decisão</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB: UPLOAD IA -->
+        <div id="upload" class="tab-content">
+            <div style="padding: 40px;">
+                <h2 style="color: #2c3e50; margin-bottom: 30px;">📁 Upload com IA</h2>
+                
+                <div class="upload-section">
+                    <h3 style="margin-bottom: 20px;">🤖 Conversão Automática</h3>
+                    <p>Arraste sua sentença aqui ou clique para selecionar</p>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt" multiple>
+                        <span class="upload-icon">📄</span>
+                        <h4>Clique ou arraste arquivos aqui</h4>
+                        <p>PDF, DOC, DOCX, TXT - Máximo 10MB</p>
+                        
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="uploadStatus" style="margin-top: 15px; font-weight: 600;"></div>
+                    
+                    <button class="btn btn-magic" id="btnProcessarIA" disabled>
+                        🚀 Processar com IA
+                    </button>
+                </div>
+                
+                <div id="textoExtraido" style="display: none; background: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h4 style="color: #2c3e50; margin-bottom: 15px;">📄 Texto Extraído</h4>
+                    <div id="textoConteudo" style="max-height: 300px; overflow-y: auto; background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; line-height: 1.4;"></div>
+                    
+                    <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <button class="btn" onclick="copiarTextoIA()">📋 Copiar para IA</button>
+                        <button class="btn btn-success" onclick="preencherCamposAutomatico()">✨ Preencher Automático</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB: GRAVADOR -->
+        <div id="gravador" class="tab-content">
+            <div style="padding: 40px;">
+                <h2 style="color: #2c3e50; margin-bottom: 30px;">🎙️ Gravador de Áudio</h2>
+                
+                <div class="gravador-section">
+                    <h3 style="margin-bottom: 20px; color: #721c24;">🎤 Gravação Profissional</h3>
+                    
+                    <div id="statusGravacao" class="status-gravacao">
+                        🎤 Pronto para gravar
+                    </div>
+                    
+                    <div id="audioVisualizer" class="audio-visualizer" style="display: none;">
+                        <!-- Barras do visualizador serão criadas por JavaScript -->
+                    </div>
+                    
+                    <div id="tempoGravacao" style="font-size: 1.5em; font-weight: bold; margin: 15px 0; color: #2c3e50;">
+                        00:00
+                    </div>
+                    
+                    <div class="controles-audio">
+                        <button class="btn-audio btn-gravar" id="btnIniciarGravacao">
+                            🔴 Gravar
+                        </button>
+                        <button class="btn-audio btn-parar" id="btnPararGravacao" disabled>
+                            ⏹️ Parar
+                        </button>
+                        <button class="btn-audio btn-play" id="btnReproducir" disabled>
+                            ▶️ Ouvir
+                        </button>
+                    </div>
+                    
+                    <audio id="audioPlayer" controls style="width: 100%; margin: 20px 0; display: none;"></audio>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                        <button class="btn" id="btnBaixarAudio" disabled>💾 Baixar MP3</button>
+                        <button class="btn btn-success" id="btnGerarQRAudio" disabled>📱 Gerar QR</button>
+                    </div>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin-top: 30px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 15px;">💡 Dicas para Gravação Perfeita</h4>
+                    <ul style="line-height: 2; padding-left: 20px;">
+                        <li>🎯 <strong>Ambiente:</strong> Escolha local silencioso</li>
+                        <li>🗣️ <strong>Dicção:</strong> Fale pausadamente e claro</li>
+                        <li>⏱️ <strong>Tempo:</strong> Ideal entre 2-4 minutos</li>
+                        <li>📝 <strong>Roteiro:</strong> Pratique antes de gravar</li>
+                        <li>☁️ <strong>Armazenamento:</strong> Faça upload para nuvem</li>
+                        <li>🔗 <strong>Link:</strong> Cole no campo do formulário</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB: BIBLIOTECA -->
+        <div id="biblioteca" class="tab-content">
+            <div style="padding: 40px;">
+                <h2 style="color: #2c3e50; margin-bottom: 30px;">📚 Biblioteca de Templates</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="template-card" onclick="carregarTemplate('cobranca')">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">💰</div>
+                        <h4>Cobrança/Dívida</h4>
+                        <p>Template para ações de cobrança</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="carregarTemplate('consumidor')">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">🛒</div>
+                        <h4>Relação de Consumo</h4>
+                        <p>Template para direito do consumidor</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="carregarTemplate('locacao')">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">🏠</div>
+                        <h4>Locação</h4>
+                        <p>Template para ações de despejo</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="carregarTemplate('transito')">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">🚗</div>
+                        <h4>Acidente de Trânsito</h4>
+                        <p>Template para indenizações</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="carregarTemplate('servicos')">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">🔧</div>
+                        <h4>Prestação de Serviços</h4>
+                        <p>Template para serviços executados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB: ESTATÍSTICAS -->
+        <div id="estatisticas" class="tab-content">
+            <div style="padding: 40px;">
+                <h2 style="color: #2c3e50; margin-bottom: 30px;">📊 Estatísticas</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalDecisoes">0</div>
+                        <div class="stat-label">Decisões Criadas</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalUploads">0</div>
+                        <div class="stat-label">Uploads Processados</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalGravacoes">0</div>
+                        <div class="stat-label">Áudios Gravados</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalTemplates">0</div>
+                        <div class="stat-label">Templates Usados</div>
+                    </div>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 15px;">📈 Informações do Sistema</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div>
+                            <strong>Versão:</strong> 2.0 - Corrigida
+                        </div>
+                        <div>
+                            <strong>Última Atualização:</strong> <span id="ultimaAtualizacao">-</span>
+                        </div>
+                        <div>
+                            <strong>Navegador:</strong> <span id="infoNavegador">-</span>
+                        </div>
+                        <div>
+                            <strong>Dispositivo:</strong> <span id="infoDispositivo">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/gravador.js"></script>
+    <script src="js/upload.js"></script>
+</body>
+</html>
